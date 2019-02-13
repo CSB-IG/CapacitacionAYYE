@@ -18,4 +18,4 @@ tabla2 <- tabla %>%
                 Equipment)
 
 
-
+tabla2
