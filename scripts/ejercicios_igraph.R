@@ -12,7 +12,7 @@ tabla2[,1]
 
 da.fr <- cbind(tabla2[,-1], 
                Airline = tabla2$Airline
-               )
+)
 
 
 #falta filtrar para que los stops sean siempre 0 ... usar dplyr::filter
