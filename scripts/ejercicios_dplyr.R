@@ -19,3 +19,15 @@ tabla2 <- tabla %>%
 
 
 tabla2
+
+
+
+#queremos agregar o modificar una columna
+#usamos dplyr::mutate
+
+tabla2 <- tabla2 %>%
+    mutate(Codeshare = ifelse(test = Codeshare == "Y",
+                              yes  = "si_tiene",
+                              no   = "no_tiene"                   
+                              )
+           )
