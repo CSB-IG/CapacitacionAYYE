@@ -31,3 +31,14 @@ tabla2 <- tabla2 %>%
                               no   = "no_tiene"                   
                               )
            )
+
+#queremos ver todas las rutas desde o hacia MEX
+
+rutas_mex <- tabla2 %>%
+  dplyr::filter(Source_airport == "MEX" | Destination_Airport == "MEX")
+
+#Aquí comprobamos que obtenemos tanto Source_airport 
+#como Destination_Airport en rutas_mex
+rutas_mex %>% 
+  dplyr::filter(Source_airport == "MEX") %>%
+  head
