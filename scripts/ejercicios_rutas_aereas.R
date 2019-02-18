@@ -44,9 +44,17 @@ tabla_nueva %>%
 #Checamos el tipo de estructura de la columna Codeshare
 str(tabla_nueva $Codeshare)
 
+#Hago un subset de las rutas que contienen escalas
+escalas <- subset(tabla_nueva, Stops_Number != 0)
+
+escalas %>% head
+
+nrow(escalas)
+
 #Ahora voy a quitar las rutas que contienen escalas, 
 #i.e. los que son distintos de 0 en "Stops_Number"
-tabla_escalas <- tabla_nueva %>%
-  dplyr::mutate(tabla_nueva = if(test = Stops_Number == 1){
-    tabla_nueva[-c()]
-  }
+tabla_sin_escalas <- tabla_nueva %>% 
+  dplyr::filter(Stops_Number == 0)
+
+tabla_sin_escalas %>% head
+
