@@ -122,6 +122,7 @@ transitivity(g)
 da.fr %>%
   dplyr::filter(Source_airport == "MEX" & Destination_Airport == "ATL")
 
+
 #Tomo todas las aerolíneas posibles con unique
 #Como esta lista es de tipo Factor, lo convierto a caracteres 
 mis_aerolineas <- as.character(unique(da.fr$Airline)) 
@@ -171,11 +172,17 @@ capas <- lapply(mis_aerolineas, FUN = function(i){
   return(Resultados)
 }) 
 
-plot(capas$`2I`$Red)
+#capas
+capas$`2B` #No sirve, se tarda
+plot(capas$`2B`) #No sirve
 
+
+plot(capas$`2I`$Red) #Sí sirve para graficar la capa 2I
+
+#Llamo a las capas 1 a 4 y al conjunto de datos los nombro capas_4
 capas_4 <- capas[1:4
-                 ]
-
+                 ] 
+#
 capas_4[[1]][["Red"]]
 names(capas_4)
 

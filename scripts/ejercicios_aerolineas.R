@@ -172,8 +172,8 @@ eccentricity(g) %>% head
 #Transitivity/Clustering Coefficient
 transitivity(g)
 
-#Checo estructura de da.fr
-str(da.fr)
+#Vemos cuántas aerolíneas distintas tenemos
+length(unique(da.fr$Airline))
 
 #Tomo todas las aerolíneas posibles con unique
 #Como las aerolíneas son de tipo Factor, lo convierto a caracteres 
@@ -182,69 +182,57 @@ mis_aerolineas <- as.character(unique(da.fr$Airline))
 #La lista "hereda" los nombres
 names(mis_aerolineas) <- mis_aerolineas
 
-#Se aplica el filtrado para aerolíneas, que corresponderán a las distintas capas
-capas <- lapply(mis_aerolineas, FUN = function(i){
-  da.fr %>%
-    dplyr::filter(Airline == i)
-}) 
 
-#Se le agrega la gráfica a cada capa
-capas <- lapply(mis_aerolineas, FUN = function(i){
+
+#Se aplica el filtrado para aerolíneas, que corresponderán a distintas capas 
+#y le agrega la gráfica a cada capa
+graph_capas <- lapply(mis_aerolineas, FUN = function(i){
   xf <- dplyr::filter(.data = da.fr, Airline == i)
   g <- igraph::graph_from_data_frame(d = xf, 
                                      directed = TRUE)
 }) 
 
+#Eg. Se grafica la red de la capa correspondiente a la aerolínea 2B
+plot(graph_capas$`2B`)
+
+
 #Agrego al ciclo las centralidades de cada capa
-capas_centralidades <- lapply(mis_aerolineas, FUN = function(i){
+capas <- lapply(mis_aerolineas, FUN = function(i){
   xf <- dplyr::filter(.data = da.fr, Airline == i)
-  #propiedades_nombres <- c("APL", "Diámetro", "Radio", "Clustering Coefficient")
+  g <- igraph::graph_from_data_frame(d = xf, 
+                                     directed = TRUE)
   Resultados <- list(APL = average.path.length(g), 
                      Diametro = diameter(g),
                      Radio = radius(g),
                      Clustering_Coefficient = transitivity(g),
                      Red = g)
-  #names(propiedades) <- propiedades_nombres
+  
   return(Resultados)
 }) 
 
 
-#Se grafica la red de la capa correspondiente a la aerolínea 2B
-plot(capas$`2B`)
-#Se obtienen las centralidades de la capa correspondiente a la aerolínea 2B
-capas_centralidades$'2B'
+#Llamamos la información de APL de la capa correspondiente a la aerolínea 2B
+capas$`2B`$APL
 
-#Se grafica la red de la capa correspondiente a la aerolínea 2B
-plot(capas$NH)
-
-
+#Eg. Para graficar la capa correspondiente a la aerolínea 2I.
+#Graficamos la entrada Red de la aerolínea 2I
 plot(capas$`2I`$Red)
 
-capas_4 <- capas[1:4
+#Juntamos toda la información de las capas
+capas_totales <- capas[1:567
                  ]
 
-capas_4[[1]][["Red"]]
-names(capas_4)
+#Checamos los nombres de todas las aerolíneas
+names(capas_totales)
 
+#Generalizamos.
+#Hacemos un ciclo que llame a la función capas y las grafique
 for(i in seq_along(capas)){
   plot(capas[[i]][["Red"]],
        main = names(capas[i]))
 }
 
-capas[1:4]
-
-
-
-
-
-#return(plot(g))
-return(plot(g, edge.arrow.size=.4, edge.curved=.1,
-            vertex.color="orange", 
-            vertex.frame.color="#555555",
-            vertex.label.color="black",
-            vertex.label.cex=.7))
-plot(capas$`2B`)
-
-capas$`2I`
-
-
+#Eg. Llamamos la entrada 1 del conjunto de capas totales y después llamamos la Red
+capas[[1]][["Red"]]
+#Para graficarlo
+plot(capas_totales[[1]][["Red"]])
