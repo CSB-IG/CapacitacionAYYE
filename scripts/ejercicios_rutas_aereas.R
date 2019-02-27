@@ -85,7 +85,7 @@ da.fr %>% head
 g <- igraph::graph_from_data_frame(d = da.fr, 
                                    directed = TRUE)
 
-#Graficamos
+#Graficamos todo en una capa
 plot(g, edge.arrow.size=.4, edge.curved=.1,
      vertex.color="orange", 
      vertex.frame.color="#555555",
@@ -95,6 +95,8 @@ plot(g, edge.arrow.size=.4, edge.curved=.1,
 
 #Grado
 degree(g) %>% head
+
+#Estructura de degree(g)
 str(degree(g))
 
 #Average Shortest Path Length
@@ -112,7 +114,7 @@ radius(g)
 #Excentricidad
 eccentricity(g) %>% head
 
-#Transitivity
+#Transitivity/Clustering Coefficient
 transitivity(g)
 
 
@@ -150,6 +152,9 @@ capas <- lapply(mis_aerolineas, FUN = function(i){
 
 #Se grafica la red de la capa correspondiente a la aerolínea 2B
 plot(capas$`2B`)
+
+#Se grafica la red de la capa correspondiente a la aerolínea 2B
+plot(capas$NH)
 
 #Agrego al ciclo las centralidades de cada capa
 capas <- lapply(mis_aerolineas, FUN = function(i){
