@@ -194,7 +194,7 @@ graph_capas <- lapply(mis_aerolineas, FUN = function(i){
 
 #Eg. Se grafica la red de la capa correspondiente a la aerolínea 2B
 plot(graph_capas$`2B`)
-
+plot(graph_capas$AM)
 
 #Agrego al ciclo las centralidades de cada capa
 capas <- lapply(mis_aerolineas, FUN = function(i){
@@ -213,6 +213,11 @@ capas <- lapply(mis_aerolineas, FUN = function(i){
 
 #Llamamos la información de APL de la capa correspondiente a la aerolínea 2B
 capas$`2B`$APL
+capas$AM$APL
+capas$AM$Diametro
+capas$AM$Radio
+capas$AM$Clustering_Coefficient
+
 
 #Eg. Para graficar la capa correspondiente a la aerolínea 2I.
 #Graficamos la entrada Red de la aerolínea 2I
@@ -236,3 +241,6 @@ for(i in seq_along(capas)){
 capas[[1]][["Red"]]
 #Para graficarlo
 plot(capas_totales[[1]][["Red"]])
+
+#Para averiguar cuántos nodos tenemos en la tabla_rutas2
+
